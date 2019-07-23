@@ -8,6 +8,7 @@ class Candidates extends Component {
 
         this.state = {
             candidates: [],
+            selectedCandidate: {},
         }
     }
 
@@ -23,9 +24,31 @@ class Candidates extends Component {
 
     render() {
         return(
-            <div>Hello World</div>
+            <div>
+                <div>Applications</div>
+                <ul className="applicant-list">
+                    <div>
+                        {this.state.candidates.map((candidate,key) => (
+                            <li key={key} id ={candidate.id} onClick={this.setSelectedCandidate}>{candidate.name}</li>
+                        ))}
+                    </div>
+                </ul>
+            </div>
+            
         )
     };
+
+    setSelectedCandidate = (e) => {
+        e.preventDefault();
+        let selected;
+        this.state.candidates.forEach((candidate) => {
+            if(candidate.id === parseInt(e.target.id)) {
+                selected = candidate;
+            }
+        });
+
+        this.setState({selectedCandidate: selected});
+    }
 }
 
 export default Candidates;
