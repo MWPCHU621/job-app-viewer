@@ -8,34 +8,49 @@ class Candidates extends Component {
 
         this.state = {
             candidates: [],
-            selectedCandidate: {},
+            selectedCandidate: null,
+            questions: [],
+            applications: []
         }
     }
 
     componentDidMount() {
-        fetch("http://localhost:3010/candidates")
+        fetch("http://localhost:3010/db")
         .then(res => res.json())
         .then((data) => {
-          console.log(data);
-          this.setState({candidates: data});
+          this.setState({candidates: data.candidates, questions: data.questions, applications: data.applications});
         })
         .catch(console.error);
     }
 
     render() {
-        return(
-            <div>
-                <div>Applications</div>
-                <ul className="applicant-list">
-                    <div>
-                        {this.state.candidates.map((candidate,key) => (
-                            <li key={key} id ={candidate.id} onClick={this.setSelectedCandidate}>{candidate.name}</li>
-                        ))}
-                    </div>
-                </ul>
-            </div>
-            
-        )
+        let {selectedCandidate, questions, applications, candidates} = this.state;
+
+        if(selectedCandidate === null) {
+            return(
+                <div>
+                    <div>Applications</div>
+                    <ul className="applicant-list">
+                        <div>
+                            {this.state.candidates.map((candidate,key) => (
+                                <li key={key} id ={candidate.id} onClick={this.setSelectedCandidate}>{candidate.name}</li>
+                            ))}
+                        </div>
+                    </ul>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                    <div>hello world</div>
+                    <button onClick={this.clearSelection}>Back</button>
+                    <Applications />
+                </div>
+                
+            )
+        }
+        
     };
 
     setSelectedCandidate = (e) => {
@@ -48,6 +63,20 @@ class Candidates extends Component {
         });
 
         this.setState({selectedCandidate: selected});
+    }
+
+    clearSelection = () => {
+        this.setState({selectedCandidate: null});
+    }
+
+    fetchFromApi = (source) => {
+        fetch("http://localhost:3010/")
+        .then(res => res.json())
+        .then((data) => {
+          console.log(data);
+          this.setState({candidates: data});
+        })
+        .catch(console.error);
     }
 }
 
