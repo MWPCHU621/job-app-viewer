@@ -33,7 +33,9 @@ class Application extends Component {
         this.setState({comment: e.target.value})
     }
 
-    //patch crud operation to update the comments in the json server.
+    /**
+     * @description updates the comments in the json server using the PATCH request operation.
+     */
     saveComment = () => {
         fetch('http://localhost:3010/applications/'+this.props.applicationId,{
             method: 'PATCH',

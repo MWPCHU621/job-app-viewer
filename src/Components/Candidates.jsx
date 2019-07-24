@@ -17,7 +17,7 @@ class Candidates extends Component {
     }
 
     componentDidMount() {
-        // fetches data for all candidates, questions, as well as applications from the api json-server on component did mount. Change the address if port is different.
+        // fetches data for all candidates, questions, as well as applications from the api json-server once component did mount. Change the address if port is different.
         fetch("http://localhost:3010/db")
         .then(res => res.json())
         .then((data) => {
@@ -62,6 +62,9 @@ class Candidates extends Component {
         
     };
 
+    /**
+     * @description Sets the candidate as the chosen candidate to view their application
+     */
     setSelectedCandidate = (e) => {
         e.preventDefault();
         let selected;
@@ -75,11 +78,19 @@ class Candidates extends Component {
         this.setState({selectedCandidate: selected});
     }
 
+    /**
+     * @description resets the selected candidate back to null to rerender page and bring back the list of applicants.
+     */
     clearSelection = () => {
         //clears selection to rerender the page using if else renders to imitate a multi page application.
         this.setState({selectedCandidate: null});
     }
 
+    /**
+     * @description gets the application associated with the candidate given.
+     * @param object $candidate - the candidate to fetch the application for.
+     * @return object - the application for the candidate given.
+     */
     getApplicationForCandidate = (candidate) => {
         let {applications} = this.state;
 

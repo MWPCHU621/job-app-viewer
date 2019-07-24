@@ -35,7 +35,11 @@ class Applications extends Component {
         }
     };
 
-    //gets the related question given the questionId.
+    /**
+     * @description gets the question given the question Id.
+     * @param id $number - the id of the question to search for.
+     * @return string - the question associated with the given id.
+     */
     getQuestion = (id) => {
         let {questions} = this.props;
 
