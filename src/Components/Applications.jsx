@@ -25,6 +25,7 @@ class Applications extends Component {
                         <Application 
                             key={key}
                             applicationId={this.props.application.id}
+                            application={this.props.application}
                             video={video}
                             getQuestion={this.getQuestion}
                             saveComment={this.saveComment}
@@ -56,11 +57,8 @@ class Applications extends Component {
         return question.question;
     }
 
-
 }
 
 export default Applications;
-
-{/* <video ref="test" src={this.props.application.videos[0].src} type="video/mp4" height="400px" width="400px"></video> */}
 
 
