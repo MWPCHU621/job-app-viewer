@@ -15,6 +15,7 @@ class Candidates extends Component {
     }
 
     componentDidMount() {
+        // fetches data for all candidates, questions, as well as applications from the api json-server. Change the address if port is different.
         fetch("http://localhost:3010/db")
         .then(res => res.json())
         .then((data) => {
@@ -29,10 +30,10 @@ class Candidates extends Component {
         if(selectedCandidate === null) {
             return(
                 <div>
-                    <div>Applications</div>
+                    <div>Applicant List</div>
                     <ul className="applicant-list">
                         <div>
-                            {this.state.candidates.map((candidate,key) => (
+                            {candidates.map((candidate,key) => (
                                 <li key={key} id ={candidate.id} onClick={this.setSelectedCandidate}>{candidate.name}</li>
                             ))}
                         </div>
@@ -43,9 +44,13 @@ class Candidates extends Component {
         else {
             return (
                 <div>
-                    <div>hello world</div>
+                    <div>Fake Title</div>
                     <button onClick={this.clearSelection}>Back</button>
-                    <Applications />
+                    <Applications 
+                        selectedCandidate={selectedCandidate}
+                        questions={questions}
+                        application={this.getApplicationForCandidate(selectedCandidate)}
+                    />
                 </div>
                 
             )
@@ -69,14 +74,16 @@ class Candidates extends Component {
         this.setState({selectedCandidate: null});
     }
 
-    fetchFromApi = (source) => {
-        fetch("http://localhost:3010/")
-        .then(res => res.json())
-        .then((data) => {
-          console.log(data);
-          this.setState({candidates: data});
-        })
-        .catch(console.error);
+    getApplicationForCandidate = (candidate) => {
+        let {applications} = this.state;
+
+        if(!Object.keys(candidate).includes("applicationId")) return null;
+
+        let result = applications.filter(application => (
+            application.id === candidate.applicationId
+        )).pop();
+
+        return result;
     }
 }
 
