@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import Application from './Application';
-import { thisExpression } from '@babel/types';
 
 class Applications extends Component {
     constructor(props) {
@@ -11,6 +10,7 @@ class Applications extends Component {
     }
 
     render() {
+        //candidate doesn't have an application, show related message.
         if(this.props.application === null) {
             return (
                 <div>
@@ -18,11 +18,13 @@ class Applications extends Component {
                 </div>
             )
         } else {
+            //candidate has an application, show the application.
             return(
                 <div>
                     {this.props.application.videos.map((video, key) => (
                         <Application 
                             key={key}
+                            applicationId={this.props.application.id}
                             video={video}
                             getQuestion={this.getQuestion}
                             saveComment={this.saveComment}
@@ -31,17 +33,9 @@ class Applications extends Component {
                 </div>
             )
         }
-        
     };
 
-    playVideo = () => {
-        this.refs.test.play();
-    }
-
-    pauseVideo = () => {
-        this.refs.test.pause();
-    }
-
+    //gets the related question given the questionId.
     getQuestion = (id) => {
         let {questions} = this.props;
 
@@ -52,17 +46,7 @@ class Applications extends Component {
         return question.question;
     }
 
-    saveComment = () => {
-        fetch('http://localhost:3010/applications',{
-            method: 'PATCH',
-            body: JSON.stringify({
 
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-    }
 }
 
 export default Applications;

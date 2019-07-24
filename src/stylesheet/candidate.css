@@ -1,0 +1,22 @@
+.applicantName:hover {
+    cursor: pointer;
+}
+
+.mainBlock {
+    display:inline-block;
+}
+
+.title {
+    display:inline-block;
+    font-size: larger;
+}
+
+.backBtn {
+    margin-right: 200px;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-bottom: 1px solid white;
+}

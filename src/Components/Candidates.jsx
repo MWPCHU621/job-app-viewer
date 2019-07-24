@@ -2,6 +2,8 @@ import React, {Component} from "react";
 
 import Applications from "./Applications";
 
+import '../stylesheet/candidate.css'
+
 class Candidates extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +17,7 @@ class Candidates extends Component {
     }
 
     componentDidMount() {
-        // fetches data for all candidates, questions, as well as applications from the api json-server. Change the address if port is different.
+        // fetches data for all candidates, questions, as well as applications from the api json-server on component did mount. Change the address if port is different.
         fetch("http://localhost:3010/db")
         .then(res => res.json())
         .then((data) => {
@@ -25,8 +27,9 @@ class Candidates extends Component {
     }
 
     render() {
-        let {selectedCandidate, questions, applications, candidates} = this.state;
+        let {selectedCandidate, questions, candidates} = this.state;
 
+        //no candidates has been selected, show the list of candidates irregardless whether they actually have an application or not.
         if(selectedCandidate === null) {
             return(
                 <div>
@@ -42,11 +45,12 @@ class Candidates extends Component {
             )
         }
         else {
+            //a candidate has been selected and should show the candidates application.
             return (
-                <div>
-                    <div>{this.state.selectedCandidate.name}</div>
-                    <button onClick={this.clearSelection}>Back</button>
-                    <Applications 
+                <div className="mainBlock">
+                    <button className="backBtn" onClick={this.clearSelection}>Back</button>
+                    <div className="title">{this.state.selectedCandidate.name}</div>
+                    <Applications //application for the selected person.
                         selectedCandidate={selectedCandidate}
                         questions={questions}
                         application={this.getApplicationForCandidate(selectedCandidate)}
@@ -62,6 +66,7 @@ class Candidates extends Component {
         e.preventDefault();
         let selected;
         this.state.candidates.forEach((candidate) => {
+            // searching for the right candidate given an id since the html element only contains the candidates name and id.
             if(candidate.id === parseInt(e.target.id)) {
                 selected = candidate;
             }
@@ -71,14 +76,17 @@ class Candidates extends Component {
     }
 
     clearSelection = () => {
+        //clears selection to rerender the page using if else renders to imitate a multi page application.
         this.setState({selectedCandidate: null});
     }
 
     getApplicationForCandidate = (candidate) => {
         let {applications} = this.state;
 
+        //simple to check to see whether the candidate selected has an application or not.
         if(!Object.keys(candidate).includes("applicationId")) return null;
 
+        //grabs the application for the candidate using the applicationId associated with the candidate.
         let result = applications.filter(application => (
             application.id === candidate.applicationId
         )).pop();

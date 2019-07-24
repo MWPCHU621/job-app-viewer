@@ -1,0 +1,13 @@
+.question {
+    margin-bottom: 0;
+}
+
+.saveComment {
+    position: relative;
+    bottom: 6px;
+    left: 5px;
+}
+
+.comment-block {
+    margin-bottom: 50px;
+}
