@@ -34,7 +34,7 @@ class Candidates extends Component {
                     <ul className="applicant-list">
                         <div>
                             {candidates.map((candidate,key) => (
-                                <li key={key} id ={candidate.id} onClick={this.setSelectedCandidate}>{candidate.name}</li>
+                                <li key={key} className="applicantName" id ={candidate.id} onClick={this.setSelectedCandidate}>{candidate.name}</li>
                             ))}
                         </div>
                     </ul>
@@ -44,7 +44,7 @@ class Candidates extends Component {
         else {
             return (
                 <div>
-                    <div>Fake Title</div>
+                    <div>{this.state.selectedCandidate.name}</div>
                     <button onClick={this.clearSelection}>Back</button>
                     <Applications 
                         selectedCandidate={selectedCandidate}
