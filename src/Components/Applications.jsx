@@ -43,6 +43,12 @@ class Applications extends Component {
     getQuestion = (id) => {
         let {questions} = this.props;
 
+        //null check for questions
+        if(!questions || !Array.isArray(questions)) {
+            console.error("ERROR: question entity does not exist in database.");
+            return null;
+        }
+
         let question = questions.filter(question => (
             question.id === id
         )).pop();

@@ -37,6 +37,7 @@ class Application extends Component {
      * @description updates the comments in the json server using the PATCH request operation.
      */
     saveComment = () => {
+
         fetch('http://localhost:3010/applications/'+this.props.applicationId,{
             method: 'PATCH',
             body: JSON.stringify({

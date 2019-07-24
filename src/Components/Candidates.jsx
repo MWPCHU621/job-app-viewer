@@ -67,6 +67,13 @@ class Candidates extends Component {
      */
     setSelectedCandidate = (e) => {
         e.preventDefault();
+
+        //null check for candidates.
+        if(!this.state.candidates || !Array.isArray(this.state.candidates)) {
+            console.error("Cannot Select Candidate. Candidate Entity does not exist.");
+            return null;
+        }
+
         let selected;
         this.state.candidates.forEach((candidate) => {
             // searching for the right candidate given an id since the html element only contains the candidates name and id.
@@ -93,6 +100,12 @@ class Candidates extends Component {
      */
     getApplicationForCandidate = (candidate) => {
         let {applications} = this.state;
+
+        //null check for applications.
+        if(!applications || !Array.isArray(applications)) {
+            console.error("ERROR: Cannot find any applications.");
+            return null;
+        }
 
         //simple to check to see whether the candidate selected has an application or not.
         if(!Object.keys(candidate).includes("applicationId")) return null;
