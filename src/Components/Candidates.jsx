@@ -48,7 +48,7 @@ class Candidates extends Component {
             //a candidate has been selected and should show the candidates application.
             return (
                 <div className="mainBlock">
-                    <button className="backBtn" onClick={this.clearSelection}>Back</button>
+                    <button className="backBtn" onClick={this.clearSelection}>Back to Applicant List</button>
                     <div className="title">{this.state.selectedCandidate.name}</div>
                     <Applications //application for the selected person.
                         selectedCandidate={selectedCandidate}
